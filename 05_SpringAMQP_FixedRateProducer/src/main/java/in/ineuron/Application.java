@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import in.ineuron.dto.Employee;
-import in.ineuron.producer.RetryEmployeeJsonProducer;
+import in.ineuron.producer.SpringEmployeeJsonProducer;
 
 //@EnableScheduling
 @SpringBootApplication
@@ -42,6 +41,12 @@ public class Application implements CommandLineRunner{
 
 //	@Autowired
 //	RetryEmployeeJsonProducer retryEmployeeJsonProducer;
+	
+//	@Autowired
+//	SpringPictureProducer springPictureProducer;
+	
+	@Autowired
+	SpringEmployeeJsonProducer springEmployeeJsonProducer;
 	
 	private final List<String> SOURCES=List.of("mobile","web");
 	private final List<String> TYPES=List.of("jpg","png","svg");
@@ -86,13 +91,15 @@ public class Application implements CommandLineRunner{
 //		p.setSize(ThreadLocalRandom.current().nextLong(9001,10000));
 //		p.setSource(SOURCES.get(i%SOURCES.size()));
 //		p.setType(TYPES.get(i%TYPES.size()));
-//		retryPictureProducer.sendMessage(p);
+//		springPictureProducer.sendMessage(p);
 //	}
 		
 //		for(int i=0;i<10;i++) {
 //			retryEmployeeJsonProducer.sendMessage(new Employee("EMP-"+i,"Employee-"+i,LocalDate.of(2025, 1, 1+i)));
 //		}
 		
+		var emp=new Employee("emp-spring",null,LocalDate.now());
+		springEmployeeJsonProducer.sendMessage(emp);
 		
 	}
 
