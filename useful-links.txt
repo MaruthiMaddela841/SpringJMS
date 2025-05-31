@@ -1,0 +1,5 @@
+# Official Rabbitmq website
+https://rabbitmq.com
+
+# Spring & Rabbitmq stream plugin
+https://docs.spring.io/spring-amqp/docs/current/reference/html/stream.html
