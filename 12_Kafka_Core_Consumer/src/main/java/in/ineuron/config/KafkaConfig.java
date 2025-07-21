@@ -3,6 +3,7 @@ package in.ineuron.config;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.ssl.SslBundles;
@@ -14,8 +15,10 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.benmanes.caffeine.cache.Cache;
 
 import in.ineuron.entity.CarLocation;
+import in.ineuron.entity.PaymentRequest;
 
 @Configuration
 public class KafkaConfig {
@@ -52,6 +55,30 @@ public class KafkaConfig {
 			}
 		});
 		return factory;
+	}
+	
+	//@Bean("paymentRequestContainerFactory")
+	ConcurrentKafkaListenerContainerFactory<Object,Object> paymentRequestContainerFactory(
+			ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+			SslBundles sslBundles,
+			ObjectMapper objectMapper,
+			@Qualifier("cachePaymentRequest") Cache<String,Boolean> cachePaymentRequest){
+			var factory=new ConcurrentKafkaListenerContainerFactory<Object,Object>();
+			configurer.configure(factory,consumerFactory(sslBundles));
+			factory.setRecordFilterStrategy(new RecordFilterStrategy<Object,Object>() {
+				@Override
+				public boolean filter(@SuppressWarnings("null") ConsumerRecord<Object,Object> consumerRecord) {
+					try {
+						var paymentRequest=objectMapper.readValue(consumerRecord.value().toString(), PaymentRequest.class);
+						var cacheKey=paymentRequest.calcuateHash();
+						return cachePaymentRequest.getIfPresent(cacheKey)!=null;
+					}
+					catch(Exception e) {
+						return false;
+					}
+				}
+			});
+		return null;
 	}
 
 }

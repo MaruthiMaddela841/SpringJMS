@@ -1,19 +1,14 @@
 package in.ineuron;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
-import in.ineuron.entity.PaymentRequest;
-import in.ineuron.entity.PurchaseRequest;
-import in.ineuron.producer.CounterProducer;
-import in.ineuron.producer.PaymentRequestProducer;
-import in.ineuron.producer.PurchaseRequestProducer;
+import in.ineuron.entity.FoodOrder;
+import in.ineuron.entity.SimpleNumber;
+import in.ineuron.handleexception.producer.FoodOrderProducer;
+import in.ineuron.handleexception.producer.SimpleNumberProducer;
 
 @SpringBootApplication
 //@EnableScheduling
@@ -40,8 +35,15 @@ public class Application implements CommandLineRunner{
 //	@Autowired
 //	private PurchaseRequestProducer producer;
 	
+//	@Autowired
+//	private PaymentRequestProducer paymentRequestProducer;
+	
 	@Autowired
-	private PaymentRequestProducer paymentRequestProducer;
+	private FoodOrderProducer foodOrderProducer;
+	
+	@Autowired
+	private SimpleNumberProducer simpleNumberProducer;
+	
 	
 
 	public static void main(String[] args) {
@@ -77,23 +79,34 @@ public class Application implements CommandLineRunner{
 //		
 //		producer.sendPurchaseRequest(p1);
 		
-		PaymentRequest p1=new PaymentRequest(100,"USD","1234567890","Payment 1",LocalDate.now());
-		PaymentRequest p2=new PaymentRequest(200,"USD","1234567890","Payment 2",LocalDate.now());
-		PaymentRequest p3=new PaymentRequest(300,"USD","0987654321","Payment 3",LocalDate.now());
-		PaymentRequest p4=new PaymentRequest(400,"USD","0987654321","Payment 4",LocalDate.now());
-		PaymentRequest p5=new PaymentRequest(500,"USD","1122334455","Payment 5",LocalDate.now());
-		PaymentRequest p6=new PaymentRequest(600,"USD","1122334455","Payment 6",LocalDate.now());
-		
-		paymentRequestProducer.sendPaymentRequest(p1);
-		paymentRequestProducer.sendPaymentRequest(p2);
-		paymentRequestProducer.sendPaymentRequest(p3);
-		paymentRequestProducer.sendPaymentRequest(p4);
-		paymentRequestProducer.sendPaymentRequest(p5);
-		paymentRequestProducer.sendPaymentRequest(p6);
-		
-		paymentRequestProducer.sendPaymentRequest(p1);
-		paymentRequestProducer.sendPaymentRequest(p2);
+//		PaymentRequest p1=new PaymentRequest(100,"USD","1234567890","Payment 1",LocalDate.now());
+//		PaymentRequest p2=new PaymentRequest(200,"USD","1234567890","Payment 2",LocalDate.now());
+//		PaymentRequest p3=new PaymentRequest(300,"USD","0987654321","Payment 3",LocalDate.now());
+//		PaymentRequest p4=new PaymentRequest(400,"USD","0987654321","Payment 4",LocalDate.now());
+//		PaymentRequest p5=new PaymentRequest(500,"USD","1122334455","Payment 5",LocalDate.now());
+//		PaymentRequest p6=new PaymentRequest(600,"USD","1122334455","Payment 6",LocalDate.now());
+//		
+//		paymentRequestProducer.sendPaymentRequest(p1);
+//		paymentRequestProducer.sendPaymentRequest(p2);
+//		paymentRequestProducer.sendPaymentRequest(p3);
+//		paymentRequestProducer.sendPaymentRequest(p4);
+//		paymentRequestProducer.sendPaymentRequest(p5);
+//		paymentRequestProducer.sendPaymentRequest(p6);
+//		
+//		paymentRequestProducer.sendPaymentRequest(p1);
+//		paymentRequestProducer.sendPaymentRequest(p2);
 		 	
+//		var chicken= new FoodOrder(3,"Chicken");
+//		var fish= new FoodOrder(10,"Fish");
+//		var pizza= new FoodOrder(5,"Pizza");
+//		
+//		foodOrderProducer.sendFoodOrder(chicken);
+//		foodOrderProducer.sendFoodOrder(fish);
+//		foodOrderProducer.sendFoodOrder(pizza);
+//		
+//		for(int i=100;i<103;i++) {
+//			simpleNumberProducer.sendSimpleNumber(new SimpleNumber(i));
+//		}
 	}
 
 }
