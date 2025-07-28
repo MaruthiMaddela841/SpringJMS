@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: 14_Kafka_Ms_Pattern

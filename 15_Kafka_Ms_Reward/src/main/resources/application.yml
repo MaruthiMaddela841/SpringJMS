@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: 15_Kafka_Ms_Reward
