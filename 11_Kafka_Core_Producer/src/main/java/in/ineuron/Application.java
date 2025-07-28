@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-import in.ineuron.entity.FoodOrder;
-import in.ineuron.entity.SimpleNumber;
-import in.ineuron.handleexception.producer.FoodOrderProducer;
-import in.ineuron.handleexception.producer.SimpleNumberProducer;
+import in.ineuron.entity.Image;
+import in.ineuron.handleexception.producer.Image2ProcessingProducer;
+import in.ineuron.service.ImageService;
 
 @SpringBootApplication
-//@EnableScheduling
+@EnableScheduling
 public class Application implements CommandLineRunner{
 	
 //	@Autowired
@@ -38,11 +38,31 @@ public class Application implements CommandLineRunner{
 //	@Autowired
 //	private PaymentRequestProducer paymentRequestProducer;
 	
-	@Autowired
-	private FoodOrderProducer foodOrderProducer;
+//	@Autowired
+//	private FoodOrderProducer foodOrderProducer;
+//	
+//	@Autowired
+//	private SimpleNumberProducer simpleNumberProducer;
+	
+//	@Autowired
+//	private ImageService imageService;
+//	
+//	@Autowired
+//	private ImageProcessingProducer imageProcessingProducer;
+	
+//	@Autowired
+//	private InvoiceService invoiceService;
+//	
+//	@Autowired
+//	private InvoiceProducer invoiceProducer;
 	
 	@Autowired
-	private SimpleNumberProducer simpleNumberProducer;
+	private Image2ProcessingProducer image2ProcessingProducer;
+	
+	@Autowired
+	private ImageService image2Service;
+	
+	
 	
 	
 
@@ -107,6 +127,45 @@ public class Application implements CommandLineRunner{
 //		for(int i=100;i<103;i++) {
 //			simpleNumberProducer.sendSimpleNumber(new SimpleNumber(i));
 //		}
+		
+		
+//		Image img1= imageService.generateImage("JPG");
+//		Image img2= imageService.generateImage("SVG");
+//		Image img3= imageService.generateImage("PNG");
+//		Image img4= imageService.generateImage("GIF");
+//		Image img5= imageService.generateImage("BMP");
+//		Image img6= imageService.generateImage("TIFF");
+//		
+//		imageProcessingProducer.sendImageToPartition(img1, 0);
+//		imageProcessingProducer.sendImageToPartition(img2, 0);
+//		imageProcessingProducer.sendImageToPartition(img3, 0);
+//		
+//		imageProcessingProducer.sendImageToPartition(img4, 1);
+//		imageProcessingProducer.sendImageToPartition(img5, 1);
+//		imageProcessingProducer.sendImageToPartition(img6, 1);
+		
+//		for(int i=0;i<10;i++) {
+//			var invoice=invoiceService.generateInvoice();
+//			if(i>5) {
+//				invoice.setAmount(0d);
+//			}
+//			invoiceProducer.sendInvoice(invoice);
+//		}
+		
+		Image img1= image2Service.generateImage("JPG");
+		Image img2= image2Service.generateImage("SVG");
+		Image img3= image2Service.generateImage("PNG");
+		Image img4= image2Service.generateImage("GIF");
+		Image img5= image2Service.generateImage("BMP");
+		Image img6= image2Service.generateImage("TIFF");
+		
+		image2ProcessingProducer.sendImageToPartition(img1, 0);
+		image2ProcessingProducer.sendImageToPartition(img2, 0);
+		image2ProcessingProducer.sendImageToPartition(img3, 0);
+		
+		image2ProcessingProducer.sendImageToPartition(img4, 1);
+		image2ProcessingProducer.sendImageToPartition(img5, 1);
+		image2ProcessingProducer.sendImageToPartition(img6, 1);
 	}
 
 }
