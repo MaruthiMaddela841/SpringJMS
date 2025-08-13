@@ -7,7 +7,7 @@ server:
 
 spring:
   application:
-    name: 13_Kafka_Ms_Order
+    name: 17_Kafka_Stream_Order
   main:
     banner-mode: off
     log-startup-info: false
